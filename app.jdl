@@ -1,0 +1,367 @@
+
+application {
+    config {
+        baseName stock
+        applicationType monolith
+        packageName ga.aninf.stock
+        authenticationType jwt
+        prodDatabaseType postgresql
+        devDatabaseType	h2Disk
+        clientFramework angularX
+        testFrameworks [gatling]
+        languages [en, fr]
+        nativeLanguage fr
+        serverPort 8101
+    }
+    entities *
+}
+
+entity Application {
+    id UUID
+    libelle String required unique
+    tokenKey String required unique
+    code String required unique
+    deleteAt Instant
+    createdBy String required maxlength(50)
+    createdDate Instant
+    lastModifiedBy String maxlength(50)
+    lastModifiedDate Instant
+}
+
+entity CircuitValidation {
+    id UUID
+    libelle String required
+    tableName String required
+    applicationName String required
+    entiteId UUID
+    fonctionId UUID // a qui s'applique le circuit
+    deleteAt Instant
+    createdBy String required maxlength(50)
+    createdDate Instant
+    lastModifiedBy String maxlength(50)
+    lastModifiedDate Instant
+}
+
+entity Etape {
+    id UUID
+    libelle String required
+    statutId UUID required
+    isEnable Boolean required
+    deleteAt Instant
+    doitNotifier Boolean required
+    doitJoindreDocument Boolean required
+    doitGenereDocument Boolean required
+    fonctionId UUID required
+    //add json pour
+    //    documentIdIn JSON
+    //    documentIdOut JSON
+    //    fonctionId JSON
+    createdBy String required maxlength(50)
+    createdDate Instant
+    lastModifiedBy String maxlength(50)
+    lastModifiedDate Instant
+
+}
+
+entity LienEtape {
+    id UUID
+    bouttonName String required
+    deleteAt Instant
+    createdBy String required maxlength(50)
+    createdDate Instant
+    lastModifiedBy String maxlength(50)
+    lastModifiedDate Instant
+}
+
+entity HistoriqueEtape {
+    id UUID
+    commentaire TextBlob
+    ordre Integer required
+    traiter Boolean required
+    documentJoint Boolean
+    validateurFullName String
+    objectId UUID required // objet utilise
+    entiteId UUID required // entite administrative
+    tableName String required
+    createdBy String required maxlength(50)
+    createdDate Instant
+    lastModifiedBy String maxlength(50)
+    lastModifiedDate Instant
+}
+
+/*
+entity TypeDocument {
+    id UUID
+    libelle String required
+    deleteAt Instant
+}
+*/
+
+//entity Employe {
+//    id UUID
+//    firstName String required
+//    deleteAt Instant
+//}
+
+
+
+
+//entity DemandeConge {
+//    id UUID
+//    dateDebut LocalDate required
+//    dateFin LocalDate required
+//    dateRetour LocalDate required
+//    motif TextBlob
+//    nombreJours Integer required
+//    annee Integer
+//    deleteAt Instant
+//    entiteId String
+//    // Ajoutez d'autres propriétés de la demande de congé selon vos besoins
+//}
+
+//entity Ferie {
+//    id UUID
+//    annee Integer required
+//    dateDebut LocalDate required
+//    // Ajoutez d'autres propriétés de l'étape selon vos besoins
+//
+//}
+
+//entity EntiteAdministrative {
+//    id UUID
+//    libelle String required
+//    code String required unique
+//}
+
+
+
+
+//entity Document {
+//    id UUID
+//    fileSize Long required
+//    filename String required
+//    deleteAt Instant
+//}
+
+//
+
+
+//entity TypeConge {
+//    id UUID
+//    libelle String required
+//    code String required unique
+//    dureeMax Integer required
+//    // Ajoutez d'autres propriétés de la demande de congé selon vos besoins
+//
+//}
+
+//entity Statut {
+//    id UUID
+//    tableName TableName required
+//    libelle String required
+//    code String required
+//    // Ajoutez d'autres propriétés de la demande de congé selon vos besoins
+//
+//}
+//
+//entity TypeEntiteAdministrative {
+//    id UUID
+//    libelle String required
+//    code String required
+//    // Ajoutez d'autres propriétés de la demande de congé selon vos besoins
+//
+//}
+
+//ENUM
+/*
+enum TableName{
+    DEMANDE_CONGE , CANDIDAT, DEMANDE_EMPLOI
+}
+*/
+
+//RELATION
+
+/*
+relationship OneToMany {
+    HistoriqueEtape{documents} to Document{historiqueDemandeEtape}
+    Etape{typeDocumentDemandes} to TypeDocument
+    Etape{documentPourGeneres} to Document
+}
+*/
+
+relationship OneToOne{
+    Application{compte(login) } to User with builtInEntity
+}
+
+relationship ManyToOne {
+
+    Etape{circuitValidation(libelle) required} to CircuitValidation{etapes}
+    //  Etape{validateur(firstName) required } to Employe{etapes(libelle)}
+
+    //  Document {typeDocument(libelle) required } to TypeDocument
+
+    //  TypeDocument {etape(libelle) required } to Etape
+
+    LienEtape{etapeDepart(libelle) required} to Etape{liensSortants}
+    LienEtape{etapeArrivee(libelle) required} to Etape{liensEntrants}
+    LienEtape{circuitValidation(libelle) required} to CircuitValidation{lienEtapes}
+
+    //  DemandeConge{circuitValidation(libelle) required} to CircuitValidation
+    //  DemandeConge{etapeActuelle(libelle) required} to Etape
+    //  DemandeConge{employe(firstName) required} to Employe{demandeConges}
+    //  DemandeConge{entiteAdministrative(libelle) required} to EntiteAdministrative{demandeConges}
+    //  DemandeConge{typeConge(libelle) required} to TypeConge
+    //  DemandeConge{statut(libelle) required} to Statut
+
+
+    HistoriqueEtape{etape(libelle) required} to Etape
+
+    CircuitValidation{application(libelle) required} to Application
+    //  HistoriqueEtape{demandeConge required} to DemandeConge{historiqueDemandeEtapes}
+    //  HistoriqueEtape{entiteAdministrative(libelle) required} to EntiteAdministrative{historiqueDemandeEtapes}
+
+    //  EntiteAdministrative{parent(libelle)} to EntiteAdministrative{child(libelle)}
+    //  EntiteAdministrative{typeEntiteAdministrative(libelle) required } to TypeEntiteAdministrative
+
+
+}
+/*
+relationship ManyToMany {
+
+
+
+}
+*/
+
+// Set pagination options
+paginate * with pagination
+
+// Use Data Transfer Objects (DTO)
+dto * with mapstruct
+
+// Set service options to all except few serviceImpl
+service all with serviceClass
+
+filter *
+
+// Set an angular suffix
+// angularSuffix * with mySuffix
+
+
+/*
+
+Entités :
+
+Produit
+
+IdentifiantProduit (PK)
+NomProduit
+Description
+QuantitéStock
+PrixUnitaire
+
+Fournisseur
+
+IdentifiantFournisseur (PK)
+NomFournisseur
+Adresse
+NuméroTéléphone
+
+Commande
+
+IdentifiantCommande (PK)
+DateCommande
+IdentifiantFournisseur (FK)
+
+LigneCommande
+
+IdentifiantLigne (PK)
+IdentifiantCommande (FK)
+IdentifiantProduit (FK)
+QuantitéCommandée
+
+Associations :
+
+Fournisseur (1) -----> (0,n) Commande
+Commande (1) -----> (0,n) LigneCommande
+Produit (1) -----> (0,n) LigneCommande
+
+
+
+*/
+
+
+
+
+/*
+
+1. Analyse des besoins
+
+Nous identifions les entités principales ainsi que les relations entre elles, en nous basant sur les fonctionnalités fournies.
+
+Entités principales : Structure, Produit, Employé ,Catégorie, Client, Vente, Réservation, Événement, Finance, Menu, Promotion, Réservation en ligne, Conformité réglementaire.
+
+Relations :
+
+Une Structure peut organiser plusieurs événements.
+Une Structure peut employer plusieurs employés.
+
+Les employés peuvent être planifiés pour des quarts de travail et peuvent être associés à des ventes.
+
+
+
+Un gérant peut gérer plusieurs stocks.
+Les ventes sont associées à un stock et à un client.
+Les réservations sont liées à un espace ou une table spécifique et à un événement.
+Les finances comprennent des transactions telles que les ventes, les dépenses, etc.
+Les clients peuvent passer des réservations, effectuer des achats et recevoir des promotions.
+Les menus sont associés à un stock et peuvent être liés à des promotions.
+Les promotions sont associées à des ventes et à des campagnes marketing.
+Les réservations en ligne sont liées à des clients et à des espaces réservés.
+La conformité réglementaire concerne les licences, les permis, etc.
+
+Un client peut passer plusieurs commandes.
+Une commande peut contenir plusieurs produits.
+Un produit peut être présent dans plusieurs stocks.
+Un client peut réserver plusieurs tables pour un même événement.
+Une table peut être réservée par plusieurs clients à différentes dates.
+
+Un gerant ne peux pas faire deux ou trois jours sans conexion pour envoyer les données
+
+
+2. Conception conceptuelle
+
+Nous créons un schéma conceptuel en identifiant les entités, leurs attributs et les relations entre elles.
+
+Entités :
+ -Stock (Produit, Quantité)
+ -Vente (Date, Montant)
+ -Employé (Nom, Horaires)
+ -Réservation (Date, Client)
+ -Événement (Type, Date)
+ -Finance (Revenu, Dépenses)
+ -Client (Nom, Préférences)
+ -Menu (Plat, Prix)
+ -Promotion (Type, Durée)
+ -Réservation en ligne (Date, Client)
+ -Conformité réglementaire (Licences, Permis)
+ -Catégorie (IDCatégorie, NomCatégorie)
+ -Utilisateur (IDUtilisateur, Nom, Mot de passe, Type d'utilisateur).
+
+Associations : Relations entre les entités définies dans l'étape précédente.
+
+3. Conception logique
+Nous traduisons le schéma conceptuel en un modèle de données logique en utilisant des tables et des clés primaires/étrangères.
+
+Tables : Stock (IDStock, Produit, Quantité, IDGérant), Vente (IDVente, Date, Montant, IDStock, IDClient), Employé (IDEmployé, Nom, Horaires, IDGérant), Réservation (IDRéservation, Date, IDClient), Événement (IDÉvénement, Type, Date, IDRéservation), Finance (IDFinance, Revenu, Dépenses, IDGérant), Client (IDClient, Nom, Préférences), Menu (IDMenu, Plat, Prix, IDStock), Promotion (IDPromotion, Type, Durée, IDVente), Réservation en ligne (IDRéservationEnLigne, Date, IDClient, IDRéservation), Conformité réglementaire (IDConformité, Licences, Permis, IDGérant).
+
+Clés primaires/étrangères : IDGérant (clé primaire dans les tables liées au gérant), IDStock (clé primaire dans la table Stock, clé étrangère dans les autres tables liées au stock), IDClient (clé primaire dans la table Client, clé étrangère dans les autres tables liées au client), etc.
+
+4. Conception physique
+Nous définissons les spécifications techniques pour la mise en œuvre de la base de données, telles que le type de système de gestion de base de données (SGBD), les index, les contraintes d'intégrité, etc.
+
+Choix du SGBD : (par exemple, MySQL, PostgreSQL, SQL Server, etc.)
+Définition des index : Pour optimiser les performances des requêtes.
+Contraintes d'intégrité : Pour garantir l'intégrité des données.
+
+*/
