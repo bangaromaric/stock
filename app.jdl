@@ -250,48 +250,20 @@ filter *
 
 /*
 
-Entités :
-
-Produit
-
-IdentifiantProduit (PK)
-NomProduit
-Description
-QuantitéStock
-PrixUnitaire
-
-Fournisseur
-
-IdentifiantFournisseur (PK)
-NomFournisseur
-Adresse
-NuméroTéléphone
-
-Commande
-
-IdentifiantCommande (PK)
-DateCommande
-IdentifiantFournisseur (FK)
-
-LigneCommande
-
-IdentifiantLigne (PK)
-IdentifiantCommande (FK)
-IdentifiantProduit (FK)
-QuantitéCommandée
-
-Associations :
-
-Fournisseur (1) -----> (0,n) Commande
-Commande (1) -----> (0,n) LigneCommande
-Produit (1) -----> (0,n) LigneCommande
+unir les gestion
+proposer des services globales
 
 
 
 */
+/*
 
+fonctionnalite manquqnte
 
+gestion de pack primium
 
+gestion du bar
+*/
 
 /*
 
@@ -299,32 +271,63 @@ Produit (1) -----> (0,n) LigneCommande
 
 Nous identifions les entités principales ainsi que les relations entre elles, en nous basant sur les fonctionnalités fournies.
 
-Entités principales : Structure, Produit, Employé ,Catégorie, Client, Vente, Réservation, Événement, Finance, Menu, Promotion, Réservation en ligne, Conformité réglementaire.
+Entités principales : Structure, Entrepôt,  Produit, mouvementStock , Employé ,Catégorie, Client, Inventaire, Vente, Réservation, Événement, Finance, Menu, Promotion, Réservation en ligne, Conformité réglementaire.
+
 
 Relations :
 
-Une Structure peut organiser plusieurs événements.
-Une Structure peut employer plusieurs employés.
+Entrepôt :
+
+Un entrepôt représente un emplacement physique où les stocks sont stockés.
+Chaque entrepôt peut être associé à un ou plusieurs Structures.
+
+Structure :
+
+Un Structure représente un établissement où les ventes sont effectuées et les stocks sont utilisés.
+Chaque Structure est associé à un entrepôt.
+
+Employe :
+
+
+Produit :
+
+Un produit représente un article spécifique pouvant être vendu dans le Structure.
+Chaque produit est associé à une catégorie.
+Chaque produit peut avoir plusieurs mouvements de stock.
+
+Catégorie de Produit :
+
+Une catégorie de produit regroupe des produits similaires.
+Chaque catégorie peut contenir plusieurs produits.
+
+Mouvement de Stock :
+
+Un mouvement de stock représente une transaction affectant la quantité de stock d'un produit dans un entrepôt.
+Chaque mouvement de stock est associé à un produit et à un entrepôt.
+Un mouvement de stock peut être entrant (réception de marchandises) ou sortant (vente, utilisation interne).
+Chaque mouvement de stock enregistre la quantité entrante ou sortante ainsi que la date de la transaction.
+
+Stock par Entrepôt :
+
+Une table de stock par entrepôt enregistre la quantité de chaque produit disponible dans chaque entrepôt.
+Chaque enregistrement est associé à un produit et à un entrepôt.
+La quantité de stock est mise à jour à chaque mouvement de stock entrant ou sortant.
+
+Inventaire :
+
+Un inventaire représente un état actuel des stocks dans un entrepôt à un moment donné.
+Chaque inventaire est associé à un entrepôt et une date.
+Pour chaque produit dans l'inventaire, la quantité de stock est enregistrée.
+
+Vente :
+
+Une vente représente une transaction où un produit est vendu à un client dans un Structure.
+Chaque vente est associée à un Structure, un produit et une quantité vendue.
+Les ventes affectent le stock disponible dans l'entrepôt associé au Structure.
+
 
 Les employés peuvent être planifiés pour des quarts de travail et peuvent être associés à des ventes.
 
-
-
-Un gérant peut gérer plusieurs stocks.
-Les ventes sont associées à un stock et à un client.
-Les réservations sont liées à un espace ou une table spécifique et à un événement.
-Les finances comprennent des transactions telles que les ventes, les dépenses, etc.
-Les clients peuvent passer des réservations, effectuer des achats et recevoir des promotions.
-Les menus sont associés à un stock et peuvent être liés à des promotions.
-Les promotions sont associées à des ventes et à des campagnes marketing.
-Les réservations en ligne sont liées à des clients et à des espaces réservés.
-La conformité réglementaire concerne les licences, les permis, etc.
-
-Un client peut passer plusieurs commandes.
-Une commande peut contenir plusieurs produits.
-Un produit peut être présent dans plusieurs stocks.
-Un client peut réserver plusieurs tables pour un même événement.
-Une table peut être réservée par plusieurs clients à différentes dates.
 
 Un gerant ne peux pas faire deux ou trois jours sans conexion pour envoyer les données
 
@@ -334,8 +337,20 @@ Un gerant ne peux pas faire deux ou trois jours sans conexion pour envoyer les d
 Nous créons un schéma conceptuel en identifiant les entités, leurs attributs et les relations entre elles.
 
 Entités :
- -Stock (Produit, Quantité)
- -Vente (Date, Montant)
+ -Entrepot (id, libelle)
+ -Structure (id, libelle, Quantité)
+ -Catégorie (id,libelle)
+ -Produit (id,libelle, id_categorie)
+ -MouvementStock (id, id_produit, id_entrepot, type_mouvement, Quantité, date_mouvement)
+ -Stock (id, id_entrepot, id_Produit, Quantité)
+ -Inventaire  (id, id_entrepot, date_inventaire,id_produit, Quantité)
+ -Vente (id, id_vente, id_structure, id_produit, quantié, Date_vente, montant)
+
+
+
+
+
+
  -Employé (Nom, Horaires)
  -Réservation (Date, Client)
  -Événement (Type, Date)
@@ -345,7 +360,7 @@ Entités :
  -Promotion (Type, Durée)
  -Réservation en ligne (Date, Client)
  -Conformité réglementaire (Licences, Permis)
- -Catégorie (IDCatégorie, NomCatégorie)
+
  -Utilisateur (IDUtilisateur, Nom, Mot de passe, Type d'utilisateur).
 
 Associations : Relations entre les entités définies dans l'étape précédente.
