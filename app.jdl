@@ -288,6 +288,8 @@ Chaque Structure est associé à un entrepôt.
 
 Employe :
 
+Une structure emploi plusieur employés
+un employé a une structure
 
 Produit :
 
@@ -325,6 +327,27 @@ Une vente représente une transaction où un produit est vendu à un client dans
 Chaque vente est associée à un Structure, un produit et une quantité vendue.
 Les ventes affectent le stock disponible dans l'entrepôt associé au Structure.
 
+Table Abonnements :
+
+ID_Abonnement (Clé primaire)
+ID_Utilisateur (Clé étrangère faisant référence à la table Utilisateurs)
+Date_debut
+Date_fin
+Statut (par exemple : actif, expiré, annulé, etc.)
+Type_abonnement (par exemple : mensuel, annuel, premium, standard, etc.)
+Prix
+Méthode de paiement
+
+Table Plans d'abonnement :
+
+ID_Plan (Clé primaire)
+Nom_plan
+Description
+Prix
+Durée (par exemple : mensuel, annuel, etc.)
+Avantages (par exemple : accès à des fonctionnalités premium, support prioritaire, etc.)
+
+
 
 Les employés peuvent être planifiés pour des quarts de travail et peuvent être associés à des ventes.
 
@@ -343,9 +366,17 @@ Entités :
  -Produit (id,libelle, id_categorie)
  -MouvementStock (id, id_produit, id_entrepot, type_mouvement, Quantité, date_mouvement)
  -Stock (id, id_entrepot, id_Produit, Quantité)
- -Inventaire  (id, id_entrepot, date_inventaire,id_produit, Quantité)
+ -Inventaire (id, id_entrepot, date_inventaire,id_produit, Quantité)
  -Vente (id, id_vente, id_structure, id_produit, quantié, Date_vente, montant)
 
+ //abonnement
+ -Abonnements (ID_Abonnement, ID_Utilisateur, Date_debut, Date_fin, Statut, Type_abonnement, Prix, Méthode_de_paiement, ...)
+ -Plans_abonnement (ID_Plan, Nom_plan, Description, Prix, Durée, Avantages, ...)
+
+//reservation
+ -Réservation (ID_Réservation,	ID_Client,	Date_Réservation,	Heure_Réservation,	Nombre_Personnes,	ID_Table)
+ -Table (ID_Table,	Numéro,	Capacité,	ID_TypeTablee)
+ -TypeTable (ID_TypeTable,	Description)
 
 
 
