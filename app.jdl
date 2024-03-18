@@ -20,6 +20,8 @@ entity Entrepot {
     id UUID
     libelle String required unique
     slug String required unique
+    capacite Integer required
+    description TextBlob
 
     deleteAt Instant
     createdBy String required maxlength(50)
@@ -31,6 +33,10 @@ entity Entrepot {
 entity Structure {
     id UUID
     libelle String required
+    telephone String required
+    email String required pattern(/^[^@\s]+@[^@\s]+\.[^@\s]+$/)
+    adresse String
+
 
     deleteAt Instant
     createdBy String required maxlength(50)
@@ -44,18 +50,20 @@ entity Produit {
     libelle String required
     description TextBlob
     slug String required unique
-    deleteAt Instant
+    prixUnitaire BigDecimal required
+    DateExpiration LocalDate
 
+    deleteAt Instant
     createdBy String required maxlength(50)
     createdDate Instant
     lastModifiedBy String maxlength(50)
     lastModifiedDate Instant
-
 }
 
 entity MouvementStock {
     id UUID
     quantité Long required
+    TypeMouvement TypeMouvement required
 
     deleteAt Instant
     createdBy String required maxlength(50)
@@ -141,7 +149,25 @@ entity PlansAbonnement {
     lastModifiedDate Instant
 }
 
+entity Employe {
+    id UUID
+    firstName String
+    lastName String required
+
+    email String pattern(/^[^@\s]+@[^@\s]+\.[^@\s]+$/)
+
+    deleteAt Instant
+    createdBy String required maxlength(50)
+    createdDate Instant
+    lastModifiedBy String maxlength(50)
+    lastModifiedDate Instant
+}
+
 //ENUM
+
+enum TypeMouvement{
+    ENTREE , SORTIE
+}
 
 enum StatutAbonnement{
     ACTIF , EXPIRE, ANNULE
