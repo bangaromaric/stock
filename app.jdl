@@ -11,16 +11,16 @@ application {
         testFrameworks [gatling]
         languages [en, fr]
         nativeLanguage fr
-        serverPort 8101
+        serverPort 8080
     }
     entities *
 }
 
-entity Application {
+entity Entrepot {
     id UUID
     libelle String required unique
-    tokenKey String required unique
-    code String required unique
+    slug String required unique
+
     deleteAt Instant
     createdBy String required maxlength(50)
     createdDate Instant
@@ -28,13 +28,10 @@ entity Application {
     lastModifiedDate Instant
 }
 
-entity CircuitValidation {
+entity Structure {
     id UUID
     libelle String required
-    tableName String required
-    applicationName String required
-    entiteId UUID
-    fonctionId UUID // a qui s'applique le circuit
+
     deleteAt Instant
     createdBy String required maxlength(50)
     createdDate Instant
@@ -42,20 +39,13 @@ entity CircuitValidation {
     lastModifiedDate Instant
 }
 
-entity Etape {
+entity Produit {
     id UUID
     libelle String required
-    statutId UUID required
-    isEnable Boolean required
+    description TextBlob
+    slug String required unique
     deleteAt Instant
-    doitNotifier Boolean required
-    doitJoindreDocument Boolean required
-    doitGenereDocument Boolean required
-    fonctionId UUID required
-    //add json pour
-    //    documentIdIn JSON
-    //    documentIdOut JSON
-    //    fonctionId JSON
+
     createdBy String required maxlength(50)
     createdDate Instant
     lastModifiedBy String maxlength(50)
@@ -63,9 +53,10 @@ entity Etape {
 
 }
 
-entity LienEtape {
+entity MouvementStock {
     id UUID
-    bouttonName String required
+    quantité Long required
+
     deleteAt Instant
     createdBy String required maxlength(50)
     createdDate Instant
@@ -73,21 +64,97 @@ entity LienEtape {
     lastModifiedDate Instant
 }
 
-entity HistoriqueEtape {
+entity Stock {
     id UUID
-    commentaire TextBlob
-    ordre Integer required
-    traiter Boolean required
-    documentJoint Boolean
-    validateurFullName String
-    objectId UUID required // objet utilise
-    entiteId UUID required // entite administrative
-    tableName String required
+    quantité Long required
+
+    deleteAt Instant
     createdBy String required maxlength(50)
     createdDate Instant
     lastModifiedBy String maxlength(50)
     lastModifiedDate Instant
 }
+
+entity Inventaire {
+    id UUID
+    quantité Long required
+
+    deleteAt Instant
+    createdBy String required maxlength(50)
+    createdDate Instant
+    lastModifiedBy String maxlength(50)
+    lastModifiedDate Instant
+}
+
+entity Vente {
+    id UUID
+    quantité Long required
+    montant BigDecimal required
+
+    deleteAt Instant
+    createdBy String required maxlength(50)
+    createdDate Instant
+    lastModifiedBy String maxlength(50)
+    lastModifiedDate Instant
+}
+
+entity Abonnement {
+    id UUID
+    dateDebut Instant required
+    dateFin Instant required
+    statutAbonnement StatutAbonnement required
+    prix BigDecimal required
+
+
+    deleteAt Instant
+    createdBy String required maxlength(50)
+    createdDate Instant
+    lastModifiedBy String maxlength(50)
+    lastModifiedDate Instant
+}
+
+entity Paiement {
+    id UUID
+    montant BigDecimal required
+    methodePaiement MethodePaiement required
+    statutPaiement StatutPaiement required
+
+    deleteAt Instant
+    createdBy String required maxlength(50)
+    createdDate Instant
+    lastModifiedBy String maxlength(50)
+    lastModifiedDate Instant
+}
+
+entity PlansAbonnement {
+    id UUID
+    libelle String required
+    description TextBlob required
+    prix BigDecimal required
+    Duree String
+    Avantage String
+
+    deleteAt Instant
+    createdBy String required maxlength(50)
+    createdDate Instant
+    lastModifiedBy String maxlength(50)
+    lastModifiedDate Instant
+}
+
+//ENUM
+
+enum StatutAbonnement{
+    ACTIF , EXPIRE, ANNULE
+}
+
+enum MethodePaiement{
+    PAYPAL , AIRTEL_MONEY, MOOV_MONEY, CARTE_VISA
+}
+
+enum StatutPaiement{
+    CONFIRME , EN_ATTENTE, ANNULE
+}
+
 
 /*
 entity TypeDocument {
@@ -172,12 +239,7 @@ entity TypeDocument {
 //
 //}
 
-//ENUM
-/*
-enum TableName{
-    DEMANDE_CONGE , CANDIDAT, DEMANDE_EMPLOI
-}
-*/
+
 
 //RELATION
 
@@ -292,6 +354,7 @@ Gestion du personnel :
 Planifier les horaires du personnel.
 Affecter les tâches aux employés.
 Communiquer avec le personnel en temps réel.
+
 4. Fonctionnalités pour se démarquer de la concurrence :
 
 Réalité augmentée :
@@ -426,19 +489,22 @@ Nous créons un schéma conceptuel en identifiant les entités, leurs attributs 
 
 Entités :
  -Entrepot (id, libelle)
- -Structure (id, libelle, Quantité)
+ -Structure (id, libelle)
  -Catégorie (id,libelle)
  -Produit (id,libelle, id_categorie)
  -MouvementStock (id, id_produit, id_entrepot, type_mouvement, Quantité, date_mouvement)
  -Stock (id, id_entrepot, id_Produit, Quantité)
  -Inventaire (id, id_entrepot, date_inventaire,id_produit, Quantité)
- -Vente (id, id_vente, id_structure, id_produit, quantié, Date_vente, montant)
+ -Vente (id, id_vente, id_structure, id_produit, quantié, Date_time_vente, montant)
+ -Utilisateur (id, Nom, Mot de passe, Type d'utilisateur).
 
- //abonnement
+
+ //Abonnement
  -Abonnements (ID_Abonnement, ID_Utilisateur, Date_debut, Date_fin, Statut, Type_abonnement, Prix, Méthode_de_paiement, ...)
  -Plans_abonnement (ID_Plan, Nom_plan, Description, Prix, Durée, Avantages, ...)
+ -Paiement()
 
-//reservation
+ //Reservation
  -Réservation (ID_Réservation,	ID_Client,	Date_Réservation,	Heure_Réservation,	Nombre_Personnes,	ID_Table)
  -Table (ID_Table,	Numéro,	Capacité,	ID_TypeTablee)
  -TypeTable (ID_TypeTable,	Description)
@@ -446,27 +512,10 @@ Entités :
 
 
 
-
- -Employé (Nom, Horaires)
- -Réservation (Date, Client)
- -Événement (Type, Date)
- -Finance (Revenu, Dépenses)
- -Client (Nom, Préférences)
- -Menu (Plat, Prix)
- -Promotion (Type, Durée)
- -Réservation en ligne (Date, Client)
- -Conformité réglementaire (Licences, Permis)
-
- -Utilisateur (IDUtilisateur, Nom, Mot de passe, Type d'utilisateur).
-
 Associations : Relations entre les entités définies dans l'étape précédente.
 
 3. Conception logique
-Nous traduisons le schéma conceptuel en un modèle de données logique en utilisant des tables et des clés primaires/étrangères.
 
-Tables : Stock (IDStock, Produit, Quantité, IDGérant), Vente (IDVente, Date, Montant, IDStock, IDClient), Employé (IDEmployé, Nom, Horaires, IDGérant), Réservation (IDRéservation, Date, IDClient), Événement (IDÉvénement, Type, Date, IDRéservation), Finance (IDFinance, Revenu, Dépenses, IDGérant), Client (IDClient, Nom, Préférences), Menu (IDMenu, Plat, Prix, IDStock), Promotion (IDPromotion, Type, Durée, IDVente), Réservation en ligne (IDRéservationEnLigne, Date, IDClient, IDRéservation), Conformité réglementaire (IDConformité, Licences, Permis, IDGérant).
-
-Clés primaires/étrangères : IDGérant (clé primaire dans les tables liées au gérant), IDStock (clé primaire dans la table Stock, clé étrangère dans les autres tables liées au stock), IDClient (clé primaire dans la table Client, clé étrangère dans les autres tables liées au client), etc.
 
 4. Conception physique
 Nous définissons les spécifications techniques pour la mise en œuvre de la base de données, telles que le type de système de gestion de base de données (SGBD), les index, les contraintes d'intégrité, etc.
