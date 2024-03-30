@@ -17,11 +17,11 @@ export const sampleWithPartialData: IStock = {
 export const sampleWithFullData: IStock = {
   id: '0708e949-c066-4e71-a80f-5d32f2687c31',
   quantite: 17945,
-  deleteAt: dayjs('2024-03-29T23:47'),
+  deleteAt: dayjs('2024-03-30T00:28'),
   createdBy: 'précisément quand',
-  createdDate: dayjs('2024-03-30T09:32'),
+  createdDate: dayjs('2024-03-30T10:13'),
   lastModifiedBy: 'dominer loin de simple',
-  lastModifiedDate: dayjs('2024-03-30T03:36'),
+  lastModifiedDate: dayjs('2024-03-30T04:17'),
 };
 
 export const sampleWithNewData: NewStock = {

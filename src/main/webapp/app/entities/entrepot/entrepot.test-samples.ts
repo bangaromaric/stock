@@ -16,7 +16,7 @@ export const sampleWithPartialData: IEntrepot = {
   slug: 'vis-à-vie de',
   capacite: 18253,
   description: '../fake-data/blob/hipster.txt',
-  deleteAt: dayjs('2024-03-30T02:30'),
+  deleteAt: dayjs('2024-03-30T03:11'),
   createdBy: 'risquer chef devant',
 };
 
@@ -26,11 +26,11 @@ export const sampleWithFullData: IEntrepot = {
   slug: 'gratis meuh si bien que',
   capacite: 18473,
   description: '../fake-data/blob/hipster.txt',
-  deleteAt: dayjs('2024-03-29T15:37'),
+  deleteAt: dayjs('2024-03-29T16:18'),
   createdBy: 'bof',
-  createdDate: dayjs('2024-03-30T13:24'),
+  createdDate: dayjs('2024-03-30T14:05'),
   lastModifiedBy: 'fonctionnaire',
-  lastModifiedDate: dayjs('2024-03-30T07:55'),
+  lastModifiedDate: dayjs('2024-03-30T08:35'),
 };
 
 export const sampleWithNewData: NewEntrepot = {

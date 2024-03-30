@@ -7,23 +7,20 @@
                         http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
     <!--
-        Added the entity Abonnement.
+        Added the entity MouvementStock.
     -->
-    <changeSet id="20240330153417-1" author="jhipster">
-        <createTable tableName="abonnement">
+    <changeSet id="20240330161104-1" author="jhipster">
+        <createTable tableName="mouvement_stock">
             <column name="id" type="${uuidType}">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="date_debut" type="${datetimeType}">
+            <column name="quantite" type="bigint">
                 <constraints nullable="false" />
             </column>
-            <column name="date_fin" type="${datetimeType}">
+            <column name="type_mouvement" type="varchar(255)">
                 <constraints nullable="false" />
             </column>
-            <column name="statut_abonnement" type="varchar(255)">
-                <constraints nullable="false" />
-            </column>
-            <column name="prix" type="decimal(21,2)">
+            <column name="transaction_date" type="${datetimeType}">
                 <constraints nullable="false" />
             </column>
             <column name="delete_at" type="${datetimeType}">
@@ -41,22 +38,18 @@
             <column name="last_modified_date" type="${datetimeType}">
                 <constraints nullable="true" />
             </column>
-            <column name="structure_id" type="${uuidType}">
+            <column name="produit_id" type="${uuidType}">
                 <constraints nullable="false" />
             </column>
-            <column name="plans_abonnement_id" type="${uuidType}">
-                <constraints nullable="false" />
-            </column>
-            <column name="paiement_id" type="${uuidType}">
+            <column name="entrepot_id" type="${uuidType}">
                 <constraints nullable="false" />
             </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
         </createTable>
-        <dropDefaultValue tableName="abonnement" columnName="date_debut" columnDataType="${datetimeType}"/>
-        <dropDefaultValue tableName="abonnement" columnName="date_fin" columnDataType="${datetimeType}"/>
-        <dropDefaultValue tableName="abonnement" columnName="delete_at" columnDataType="${datetimeType}"/>
-        <dropDefaultValue tableName="abonnement" columnName="created_date" columnDataType="${datetimeType}"/>
-        <dropDefaultValue tableName="abonnement" columnName="last_modified_date" columnDataType="${datetimeType}"/>
+        <dropDefaultValue tableName="mouvement_stock" columnName="transaction_date" columnDataType="${datetimeType}"/>
+        <dropDefaultValue tableName="mouvement_stock" columnName="delete_at" columnDataType="${datetimeType}"/>
+        <dropDefaultValue tableName="mouvement_stock" columnName="created_date" columnDataType="${datetimeType}"/>
+        <dropDefaultValue tableName="mouvement_stock" columnName="last_modified_date" columnDataType="${datetimeType}"/>
     </changeSet>
 
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here -->
@@ -69,25 +62,23 @@
           This can be customized by adding or removing 'faker' in the 'spring.liquibase.contexts'
           Spring Boot configuration key.
     -->
-    <changeSet id="20240330153417-1-data" author="jhipster" context="faker">
+    <changeSet id="20240330161104-1-data" author="jhipster" context="faker">
         <loadData
-                  file="config/liquibase/fake-data/abonnement.csv"
+                  file="config/liquibase/fake-data/mouvement_stock.csv"
                   separator=";"
-                  tableName="abonnement"
+                  tableName="mouvement_stock"
                   usePreparedStatements="true">
             <column name="id" type="${uuidType}"/>
-            <column name="date_debut" type="date"/>
-            <column name="date_fin" type="date"/>
-            <column name="statut_abonnement" type="string"/>
-            <column name="prix" type="numeric"/>
+            <column name="quantite" type="numeric"/>
+            <column name="type_mouvement" type="string"/>
+            <column name="transaction_date" type="date"/>
             <column name="delete_at" type="date"/>
             <column name="created_by" type="string"/>
             <column name="created_date" type="date"/>
             <column name="last_modified_by" type="string"/>
             <column name="last_modified_date" type="date"/>
-            <column name="structure_id" type="${uuidType}"/>
-            <column name="plans_abonnement_id" type="${uuidType}"/>
-            <column name="paiement_id" type="${uuidType}"/>
+            <column name="produit_id" type="${uuidType}"/>
+            <column name="entrepot_id" type="${uuidType}"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
         </loadData>
     </changeSet>

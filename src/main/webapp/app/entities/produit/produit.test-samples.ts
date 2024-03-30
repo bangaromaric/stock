@@ -18,7 +18,7 @@ export const sampleWithPartialData: IProduit = {
   prixUnitaire: 22289.87,
   dateExpiration: dayjs('2024-03-29'),
   createdBy: 'tant sombre',
-  createdDate: dayjs('2024-03-30T02:37'),
+  createdDate: dayjs('2024-03-30T03:18'),
   lastModifiedBy: 'euh',
 };
 
@@ -29,11 +29,11 @@ export const sampleWithFullData: IProduit = {
   slug: 'sympathique égoïste',
   prixUnitaire: 13883.9,
   dateExpiration: dayjs('2024-03-30'),
-  deleteAt: dayjs('2024-03-30T07:45'),
+  deleteAt: dayjs('2024-03-30T08:26'),
   createdBy: 'apparemment',
-  createdDate: dayjs('2024-03-30T08:47'),
+  createdDate: dayjs('2024-03-30T09:28'),
   lastModifiedBy: 'orange insuffisamment',
-  lastModifiedDate: dayjs('2024-03-30T09:37'),
+  lastModifiedDate: dayjs('2024-03-30T10:18'),
 };
 
 export const sampleWithNewData: NewProduit = {

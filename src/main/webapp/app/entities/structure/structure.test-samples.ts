@@ -25,11 +25,11 @@ export const sampleWithFullData: IStructure = {
   telephone: '0187750408',
   email: '5EZD9-@I54w.y%',
   adresse: 'peser de peur de',
-  deleteAt: dayjs('2024-03-30T09:55'),
+  deleteAt: dayjs('2024-03-30T10:36'),
   createdBy: 'antagoniste',
-  createdDate: dayjs('2024-03-29T19:10'),
+  createdDate: dayjs('2024-03-29T19:51'),
   lastModifiedBy: 'autrement',
-  lastModifiedDate: dayjs('2024-03-29T17:27'),
+  lastModifiedDate: dayjs('2024-03-29T18:07'),
 };
 
 export const sampleWithNewData: NewStructure = {

@@ -16,7 +16,7 @@ export const sampleWithPartialData: IPaiement = {
   methodePaiement: 'MOOV_MONEY',
   statutPaiement: 'CONFIRME',
   createdBy: 'dîner innombrable',
-  lastModifiedDate: dayjs('2024-03-29T18:00'),
+  lastModifiedDate: dayjs('2024-03-29T18:40'),
 };
 
 export const sampleWithFullData: IPaiement = {
@@ -24,11 +24,11 @@ export const sampleWithFullData: IPaiement = {
   montant: 31463.95,
   methodePaiement: 'AIRTEL_MONEY',
   statutPaiement: 'CONFIRME',
-  deleteAt: dayjs('2024-03-30T06:14'),
+  deleteAt: dayjs('2024-03-30T06:55'),
   createdBy: 'corps enseignant circulaire',
-  createdDate: dayjs('2024-03-30T10:50'),
+  createdDate: dayjs('2024-03-30T11:31'),
   lastModifiedBy: 'volontiers proche de vivre',
-  lastModifiedDate: dayjs('2024-03-30T09:00'),
+  lastModifiedDate: dayjs('2024-03-30T09:40'),
 };
 
 export const sampleWithNewData: NewPaiement = {

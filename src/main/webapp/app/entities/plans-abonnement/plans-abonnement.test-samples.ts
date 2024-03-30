@@ -17,7 +17,7 @@ export const sampleWithPartialData: IPlansAbonnement = {
   prix: 25765.73,
   duree: 'habiller',
   createdBy: 'détruire amorphe',
-  createdDate: dayjs('2024-03-29T16:03'),
+  createdDate: dayjs('2024-03-29T16:44'),
 };
 
 export const sampleWithFullData: IPlansAbonnement = {
@@ -27,11 +27,11 @@ export const sampleWithFullData: IPlansAbonnement = {
   prix: 8801.93,
   duree: 'en dedans de',
   avantage: '../fake-data/blob/hipster.txt',
-  deleteAt: dayjs('2024-03-30T03:05'),
+  deleteAt: dayjs('2024-03-30T03:46'),
   createdBy: 'étant donné que pschitt toc-toc',
-  createdDate: dayjs('2024-03-29T21:33'),
+  createdDate: dayjs('2024-03-29T22:14'),
   lastModifiedBy: "soutenir hôte aujourd'hui",
-  lastModifiedDate: dayjs('2024-03-30T03:35'),
+  lastModifiedDate: dayjs('2024-03-30T04:16'),
 };
 
 export const sampleWithNewData: NewPlansAbonnement = {

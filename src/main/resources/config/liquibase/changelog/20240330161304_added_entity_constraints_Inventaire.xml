@@ -6,22 +6,22 @@
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
                         http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
     <!--
-        Added the constraints for entity Employe.
+        Added the constraints for entity Inventaire.
     -->
-    <changeSet id="20240330153717-2" author="jhipster">
+    <changeSet id="20240330161304-2" author="jhipster">
 
-        <addForeignKeyConstraint baseColumnNames="internal_user_id"
-                                 baseTableName="employe"
-                                 constraintName="fk_employe__internal_user_id"
+        <addForeignKeyConstraint baseColumnNames="entrepot_id"
+                                 baseTableName="inventaire"
+                                 constraintName="fk_inventaire__entrepot_id"
                                  referencedColumnNames="id"
-                                 referencedTableName="jhi_user"
+                                 referencedTableName="entrepot"
                                  />
 
-        <addForeignKeyConstraint baseColumnNames="structure_id"
-                                 baseTableName="employe"
-                                 constraintName="fk_employe__structure_id"
+        <addForeignKeyConstraint baseColumnNames="produit_id"
+                                 baseTableName="inventaire"
+                                 constraintName="fk_inventaire__produit_id"
                                  referencedColumnNames="id"
-                                 referencedTableName="structure"
+                                 referencedTableName="produit"
                                  />
     </changeSet>
 </databaseChangeLog>

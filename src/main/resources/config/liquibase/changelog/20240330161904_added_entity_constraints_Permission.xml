@@ -8,7 +8,7 @@
     <!--
         Added the constraints for entity Permission.
     -->
-    <changeSet id="20240330153817-2" author="jhipster">
+    <changeSet id="20240330161904-2" author="jhipster">
 
         <addForeignKeyConstraint baseColumnNames="permission_id"
                                  baseTableName="rel_permission__authority"

@@ -23,9 +23,9 @@
       "Permission"
     ],
     "jhipsterVersion": "8.2.1",
-    "jwtSecretKey": "MWRjYWViMzkwN2QxNzE3YTRhYmU1OTJlZTdlZWQ1OTZjOGFiYmQ5YTU5MmUxNzdjZGNhNjdiMDI3YTRhYTdiZDRiZGQ5MWUwMmUwNmI3NjlmNjlkOWU5MjNlOTlmYmI2ZDVjYmI4YmI0NDZjODFjMTE2MTE2Y2RmMjUzNjEzMDU=",
+    "jwtSecretKey": "M2RlNzUwM2YzMGUyM2IzNDE5NmFkZjEzMjZkNDFjNDBlN2VlZGJiNTVjODBmNjcwMjA5MDYxM2YxZGNkZDA5MGE0YTQ3MzY4ZTRkNmVjZWY1ZmE2NDVlYjM2OTgwNzMyMTg3MzNkYmYzYTc3YTYxYWJiNzE2YTdjNDZkMDM2ZTc=",
     "languages": ["fr", "en"],
-    "lastLiquibaseTimestamp": 1711813097000,
+    "lastLiquibaseTimestamp": 1711815544000,
     "nativeLanguage": "fr",
     "packageFolder": "ga/aninf/stock",
     "packageName": "ga.aninf.stock",

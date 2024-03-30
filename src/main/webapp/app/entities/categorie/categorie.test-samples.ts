@@ -13,18 +13,18 @@ export const sampleWithPartialData: ICategorie = {
   libelle: 'autour',
   description: '../fake-data/blob/hipster.txt',
   createdBy: 'cyan',
-  createdDate: dayjs('2024-03-30T11:30'),
+  createdDate: dayjs('2024-03-30T12:11'),
 };
 
 export const sampleWithFullData: ICategorie = {
   id: '4359595f-0dbc-41cb-952f-c51a24a8c8dd',
   libelle: 'cot cot fidèle',
   description: '../fake-data/blob/hipster.txt',
-  deleteAt: dayjs('2024-03-29T23:47'),
+  deleteAt: dayjs('2024-03-30T00:28'),
   createdBy: 'atchoum',
-  createdDate: dayjs('2024-03-30T08:14'),
+  createdDate: dayjs('2024-03-30T08:55'),
   lastModifiedBy: 'que',
-  lastModifiedDate: dayjs('2024-03-29T19:34'),
+  lastModifiedDate: dayjs('2024-03-29T20:15'),
 };
 
 export const sampleWithNewData: NewCategorie = {

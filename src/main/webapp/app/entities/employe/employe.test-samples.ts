@@ -14,9 +14,9 @@ export const sampleWithPartialData: IEmploye = {
   lastName: 'Robin',
   login: 'cuicui apte répéter',
   email: '-1u@)n(7.J3~7z',
-  deleteAt: dayjs('2024-03-29T22:01'),
+  deleteAt: dayjs('2024-03-29T22:42'),
   createdBy: 'afin que',
-  lastModifiedDate: dayjs('2024-03-30T03:01'),
+  lastModifiedDate: dayjs('2024-03-30T03:41'),
 };
 
 export const sampleWithFullData: IEmploye = {
@@ -25,11 +25,11 @@ export const sampleWithFullData: IEmploye = {
   lastName: 'Vasseur',
   login: 'sous',
   email: "-rY}/@'_>.fS;",
-  deleteAt: dayjs('2024-03-30T13:22'),
+  deleteAt: dayjs('2024-03-30T14:02'),
   createdBy: 'au-dedans de',
-  createdDate: dayjs('2024-03-30T07:11'),
+  createdDate: dayjs('2024-03-30T07:52'),
   lastModifiedBy: 'séculaire',
-  lastModifiedDate: dayjs('2024-03-30T14:11'),
+  lastModifiedDate: dayjs('2024-03-30T14:52'),
 };
 
 export const sampleWithNewData: NewEmploye = {
