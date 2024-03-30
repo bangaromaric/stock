@@ -19,7 +19,7 @@ application {
 entity Entrepot {
     id UUID
     libelle String required unique
-    slug String required unique
+    slug String unique
     capacite Integer required
     description TextBlob
 
@@ -49,7 +49,7 @@ entity Produit {
     id UUID
     libelle String required
     description TextBlob
-    slug String required unique
+    slug String unique
     prixUnitaire BigDecimal required
     DateExpiration LocalDate
 
@@ -63,6 +63,7 @@ entity Produit {
 entity Categorie {
     id UUID
     libelle String required
+    slug String unique
     description TextBlob
 
     deleteAt Instant
@@ -226,6 +227,9 @@ relationship OneToMany{
 
 relationship ManyToOne {
     Produit{categorie(libelle) required} to Categorie{produit(libelle)}
+    Produit{structure(libelle) required} to Structure{produit(libelle)}
+
+    Categorie{structure(libelle) required} to Structure{categorie(libelle)}
 
     MouvementStock{produit(libelle) required} to Produit{mouvementStock(typeMouvement)}
     MouvementStock{entrepot(libelle) required} to Entrepot{mouvementStock(typeMouvement)}
@@ -286,6 +290,7 @@ Passer commande en ligne depuis l'application.
 Choix des boissons et/ou plats.
 Paiement sécurisé via l'application.
 Suivi de la commande en temps réel.
+
 2. Fonctionnalités pour fidéliser la clientèle :
 
 Programme de fidélité :
@@ -302,6 +307,7 @@ Créer une communauté autour du bar.
 3. Fonctionnalités pour améliorer la gestion du bar :
 
 Gestion des stocks :
+
 Suivre les stocks de boissons et de nourriture en temps réel.
 Passer des commandes automatiques aux fournisseurs.
 Gérer les inventaires et les livraisons.
