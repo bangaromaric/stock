@@ -1,0 +1,198 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-employe-heading" data-cy="EmployeCreateUpdateHeading" jhiTranslate="stockApp.employe.home.createOrEditLabel">
+        Créer ou éditer un Employe
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" jhiTranslate="stockApp.employe.id" for="field_id">Id</label>
+            <input type="text" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="stockApp.employe.firstName" for="field_firstName">First Name</label>
+          <input type="text" class="form-control" name="firstName" id="field_firstName" data-cy="firstName" formControlName="firstName" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="stockApp.employe.lastName" for="field_lastName">Last Name</label>
+          <input type="text" class="form-control" name="lastName" id="field_lastName" data-cy="lastName" formControlName="lastName" />
+          @if (editForm.get('lastName')!.invalid && (editForm.get('lastName')!.dirty || editForm.get('lastName')!.touched)) {
+            <div>
+              @if (editForm.get('lastName')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Ce champ est obligatoire.</small>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="stockApp.employe.login" for="field_login">Login</label>
+          <input type="text" class="form-control" name="login" id="field_login" data-cy="login" formControlName="login" />
+          @if (editForm.get('login')!.invalid && (editForm.get('login')!.dirty || editForm.get('login')!.touched)) {
+            <div>
+              @if (editForm.get('login')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Ce champ est obligatoire.</small>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="stockApp.employe.email" for="field_email">Email</label>
+          <input type="text" class="form-control" name="email" id="field_email" data-cy="email" formControlName="email" />
+          @if (editForm.get('email')!.invalid && (editForm.get('email')!.dirty || editForm.get('email')!.touched)) {
+            <div>
+              @if (editForm.get('email')?.errors?.pattern) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.pattern" [translateValues]="{ pattern: 'Email' }"
+                  >Ce champ doit suivre l&apos;expression régulière Email.</small
+                >
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="stockApp.employe.deleteAt" for="field_deleteAt">Delete At</label>
+          <div class="d-flex">
+            <input
+              id="field_deleteAt"
+              data-cy="deleteAt"
+              type="datetime-local"
+              class="form-control"
+              name="deleteAt"
+              formControlName="deleteAt"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="stockApp.employe.createdBy" for="field_createdBy">Created By</label>
+          <input type="text" class="form-control" name="createdBy" id="field_createdBy" data-cy="createdBy" formControlName="createdBy" />
+          @if (editForm.get('createdBy')!.invalid && (editForm.get('createdBy')!.dirty || editForm.get('createdBy')!.touched)) {
+            <div>
+              @if (editForm.get('createdBy')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Ce champ est obligatoire.</small>
+              }
+              @if (editForm.get('createdBy')?.errors?.maxlength) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 50 }"
+                  >Ce champ doit faire moins de 50 caractères.</small
+                >
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="stockApp.employe.createdDate" for="field_createdDate">Created Date</label>
+          <div class="d-flex">
+            <input
+              id="field_createdDate"
+              data-cy="createdDate"
+              type="datetime-local"
+              class="form-control"
+              name="createdDate"
+              formControlName="createdDate"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="stockApp.employe.lastModifiedBy" for="field_lastModifiedBy">Last Modified By</label>
+          <input
+            type="text"
+            class="form-control"
+            name="lastModifiedBy"
+            id="field_lastModifiedBy"
+            data-cy="lastModifiedBy"
+            formControlName="lastModifiedBy"
+          />
+          @if (
+            editForm.get('lastModifiedBy')!.invalid && (editForm.get('lastModifiedBy')!.dirty || editForm.get('lastModifiedBy')!.touched)
+          ) {
+            <div>
+              @if (editForm.get('lastModifiedBy')?.errors?.maxlength) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 50 }"
+                  >Ce champ doit faire moins de 50 caractères.</small
+                >
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="stockApp.employe.lastModifiedDate" for="field_lastModifiedDate">Last Modified Date</label>
+          <div class="d-flex">
+            <input
+              id="field_lastModifiedDate"
+              data-cy="lastModifiedDate"
+              type="datetime-local"
+              class="form-control"
+              name="lastModifiedDate"
+              formControlName="lastModifiedDate"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="stockApp.employe.internalUser" for="field_internalUser">Internal User</label>
+          <select
+            class="form-control"
+            id="field_internalUser"
+            data-cy="internalUser"
+            name="internalUser"
+            formControlName="internalUser"
+            [compareWith]="compareUser"
+          >
+            <option [ngValue]="null"></option>
+            @for (userOption of usersSharedCollection; track $index) {
+              <option [ngValue]="userOption">{{ userOption.login }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="stockApp.employe.structure" for="field_structure">Structure</label>
+          <select
+            class="form-control"
+            id="field_structure"
+            data-cy="structure"
+            name="structure"
+            formControlName="structure"
+            [compareWith]="compareStructure"
+          >
+            <option [ngValue]="null"></option>
+            @for (structureOption of structuresSharedCollection; track $index) {
+              <option [ngValue]="structureOption">{{ structureOption.libelle }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Annuler</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Sauvegarder</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

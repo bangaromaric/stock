@@ -1,0 +1,10 @@
+{
+  "stockApp": {
+    "StatutAbonnement": {
+      "null": "",
+      "ACTIF": "ACTIF",
+      "EXPIRE": "EXPIRE",
+      "ANNULE": "ANNULE"
+    }
+  }
+}

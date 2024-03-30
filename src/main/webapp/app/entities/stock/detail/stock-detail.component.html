@@ -1,0 +1,70 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (stock) {
+      <div>
+        <h2 data-cy="stockDetailsHeading"><span jhiTranslate="stockApp.stock.detail.title">Stock</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="stockApp.stock.id">Id</span></dt>
+          <dd>
+            <span>{{ stock.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="stockApp.stock.quantite">Quantite</span></dt>
+          <dd>
+            <span>{{ stock.quantite }}</span>
+          </dd>
+          <dt><span jhiTranslate="stockApp.stock.deleteAt">Delete At</span></dt>
+          <dd>
+            <span>{{ stock.deleteAt | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span jhiTranslate="stockApp.stock.createdBy">Created By</span></dt>
+          <dd>
+            <span>{{ stock.createdBy }}</span>
+          </dd>
+          <dt><span jhiTranslate="stockApp.stock.createdDate">Created Date</span></dt>
+          <dd>
+            <span>{{ stock.createdDate | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span jhiTranslate="stockApp.stock.lastModifiedBy">Last Modified By</span></dt>
+          <dd>
+            <span>{{ stock.lastModifiedBy }}</span>
+          </dd>
+          <dt><span jhiTranslate="stockApp.stock.lastModifiedDate">Last Modified Date</span></dt>
+          <dd>
+            <span>{{ stock.lastModifiedDate | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span jhiTranslate="stockApp.stock.entrepot">Entrepot</span></dt>
+          <dd>
+            @if (stock.entrepot) {
+              <div>
+                <a [routerLink]="['/entrepot', stock.entrepot.id, 'view']">{{ stock.entrepot.libelle }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="stockApp.stock.produit">Produit</span></dt>
+          <dd>
+            @if (stock.produit) {
+              <div>
+                <a [routerLink]="['/produit', stock.produit.id, 'view']">{{ stock.produit.libelle }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Retour</span>
+        </button>
+
+        <button type="button" [routerLink]="['/stock', stock.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editer</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

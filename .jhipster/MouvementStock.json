@@ -1,0 +1,78 @@
+{
+  "annotations": {
+    "changelogDate": "20240330153017"
+  },
+  "applications": ["stock"],
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "id",
+      "fieldType": "UUID"
+    },
+    {
+      "fieldName": "quantite",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "typeMouvement",
+      "fieldType": "TypeMouvement",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "ENTREE,SORTIE"
+    },
+    {
+      "fieldName": "transactionDate",
+      "fieldType": "Instant",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "deleteAt",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "createdBy",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "maxlength"],
+      "fieldValidateRulesMaxlength": "50"
+    },
+    {
+      "fieldName": "createdDate",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "lastModifiedBy",
+      "fieldType": "String",
+      "fieldValidateRules": ["maxlength"],
+      "fieldValidateRulesMaxlength": "50"
+    },
+    {
+      "fieldName": "lastModifiedDate",
+      "fieldType": "Instant"
+    }
+  ],
+  "jpaMetamodelFiltering": true,
+  "name": "MouvementStock",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityField": "libelle",
+      "otherEntityName": "produit",
+      "otherEntityRelationshipName": "mouvementStock",
+      "relationshipName": "produit",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    },
+    {
+      "otherEntityField": "libelle",
+      "otherEntityName": "entrepot",
+      "otherEntityRelationshipName": "mouvementStock",
+      "relationshipName": "entrepot",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceClass"
+}

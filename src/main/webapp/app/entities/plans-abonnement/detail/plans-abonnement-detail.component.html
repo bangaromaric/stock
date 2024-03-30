@@ -1,0 +1,70 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (plansAbonnement) {
+      <div>
+        <h2 data-cy="plansAbonnementDetailsHeading"><span jhiTranslate="stockApp.plansAbonnement.detail.title">Plans Abonnement</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="stockApp.plansAbonnement.id">Id</span></dt>
+          <dd>
+            <span>{{ plansAbonnement.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="stockApp.plansAbonnement.libelle">Libelle</span></dt>
+          <dd>
+            <span>{{ plansAbonnement.libelle }}</span>
+          </dd>
+          <dt><span jhiTranslate="stockApp.plansAbonnement.description">Description</span></dt>
+          <dd>
+            <span>{{ plansAbonnement.description }}</span>
+          </dd>
+          <dt><span jhiTranslate="stockApp.plansAbonnement.prix">Prix</span></dt>
+          <dd>
+            <span>{{ plansAbonnement.prix }}</span>
+          </dd>
+          <dt><span jhiTranslate="stockApp.plansAbonnement.duree">Duree</span></dt>
+          <dd>
+            <span>{{ plansAbonnement.duree }}</span>
+          </dd>
+          <dt><span jhiTranslate="stockApp.plansAbonnement.avantage">Avantage</span></dt>
+          <dd>
+            <span>{{ plansAbonnement.avantage }}</span>
+          </dd>
+          <dt><span jhiTranslate="stockApp.plansAbonnement.deleteAt">Delete At</span></dt>
+          <dd>
+            <span>{{ plansAbonnement.deleteAt | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span jhiTranslate="stockApp.plansAbonnement.createdBy">Created By</span></dt>
+          <dd>
+            <span>{{ plansAbonnement.createdBy }}</span>
+          </dd>
+          <dt><span jhiTranslate="stockApp.plansAbonnement.createdDate">Created Date</span></dt>
+          <dd>
+            <span>{{ plansAbonnement.createdDate | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span jhiTranslate="stockApp.plansAbonnement.lastModifiedBy">Last Modified By</span></dt>
+          <dd>
+            <span>{{ plansAbonnement.lastModifiedBy }}</span>
+          </dd>
+          <dt><span jhiTranslate="stockApp.plansAbonnement.lastModifiedDate">Last Modified Date</span></dt>
+          <dd>
+            <span>{{ plansAbonnement.lastModifiedDate | formatMediumDatetime }}</span>
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Retour</span>
+        </button>
+
+        <button type="button" [routerLink]="['/plans-abonnement', plansAbonnement.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editer</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

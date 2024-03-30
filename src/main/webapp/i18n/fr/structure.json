@@ -1,0 +1,36 @@
+{
+  "stockApp": {
+    "structure": {
+      "home": {
+        "title": "Structures",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Structure",
+        "createOrEditLabel": "Créer ou éditer un Structure",
+        "notFound": "Aucun Structure trouvé"
+      },
+      "created": "Un nouveau Structure a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Structure avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Structure avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Êtes-vous certain de vouloir supprimer le Structure {{ id }} ?"
+      },
+      "detail": {
+        "title": "Structure"
+      },
+      "id": "Id",
+      "libelle": "Libelle",
+      "telephone": "Telephone",
+      "email": "Email",
+      "adresse": "Adresse",
+      "deleteAt": "Delete At",
+      "createdBy": "Created By",
+      "createdDate": "Created Date",
+      "lastModifiedBy": "Last Modified By",
+      "lastModifiedDate": "Last Modified Date",
+      "entrepot": "Entrepot",
+      "employe": "Employe",
+      "vente": "Vente",
+      "abonnement": "Abonnement"
+    }
+  }
+}

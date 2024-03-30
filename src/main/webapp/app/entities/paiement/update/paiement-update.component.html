@@ -1,0 +1,220 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-paiement-heading" data-cy="PaiementCreateUpdateHeading" jhiTranslate="stockApp.paiement.home.createOrEditLabel">
+        Créer ou éditer un Paiement
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" jhiTranslate="stockApp.paiement.id" for="field_id">Id</label>
+            <input type="text" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="stockApp.paiement.montant" for="field_montant">Montant</label>
+          <input type="number" class="form-control" name="montant" id="field_montant" data-cy="montant" formControlName="montant" />
+          @if (editForm.get('montant')!.invalid && (editForm.get('montant')!.dirty || editForm.get('montant')!.touched)) {
+            <div>
+              @if (editForm.get('montant')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Ce champ est obligatoire.</small>
+              }
+              <small
+                class="form-text text-danger"
+                [hidden]="!editForm.get('montant')?.errors?.number"
+                jhiTranslate="entity.validation.number"
+                >Ce champ doit être un nombre.</small
+              >
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="stockApp.paiement.methodePaiement" for="field_methodePaiement">Methode Paiement</label>
+          <select
+            class="form-control"
+            name="methodePaiement"
+            formControlName="methodePaiement"
+            id="field_methodePaiement"
+            data-cy="methodePaiement"
+          >
+            <option [ngValue]="null">{{ 'stockApp.MethodePaiement.null' | translate }}</option>
+            @for (methodePaiement of methodePaiementValues; track $index) {
+              <option [value]="methodePaiement">{{ 'stockApp.MethodePaiement.' + methodePaiement | translate }}</option>
+            }
+          </select>
+          @if (
+            editForm.get('methodePaiement')!.invalid && (editForm.get('methodePaiement')!.dirty || editForm.get('methodePaiement')!.touched)
+          ) {
+            <div>
+              @if (editForm.get('methodePaiement')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Ce champ est obligatoire.</small>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="stockApp.paiement.statutPaiement" for="field_statutPaiement">Statut Paiement</label>
+          <select
+            class="form-control"
+            name="statutPaiement"
+            formControlName="statutPaiement"
+            id="field_statutPaiement"
+            data-cy="statutPaiement"
+          >
+            <option [ngValue]="null">{{ 'stockApp.StatutPaiement.null' | translate }}</option>
+            @for (statutPaiement of statutPaiementValues; track $index) {
+              <option [value]="statutPaiement">{{ 'stockApp.StatutPaiement.' + statutPaiement | translate }}</option>
+            }
+          </select>
+          @if (
+            editForm.get('statutPaiement')!.invalid && (editForm.get('statutPaiement')!.dirty || editForm.get('statutPaiement')!.touched)
+          ) {
+            <div>
+              @if (editForm.get('statutPaiement')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Ce champ est obligatoire.</small>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="stockApp.paiement.deleteAt" for="field_deleteAt">Delete At</label>
+          <div class="d-flex">
+            <input
+              id="field_deleteAt"
+              data-cy="deleteAt"
+              type="datetime-local"
+              class="form-control"
+              name="deleteAt"
+              formControlName="deleteAt"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="stockApp.paiement.createdBy" for="field_createdBy">Created By</label>
+          <input type="text" class="form-control" name="createdBy" id="field_createdBy" data-cy="createdBy" formControlName="createdBy" />
+          @if (editForm.get('createdBy')!.invalid && (editForm.get('createdBy')!.dirty || editForm.get('createdBy')!.touched)) {
+            <div>
+              @if (editForm.get('createdBy')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Ce champ est obligatoire.</small>
+              }
+              @if (editForm.get('createdBy')?.errors?.maxlength) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 50 }"
+                  >Ce champ doit faire moins de 50 caractères.</small
+                >
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="stockApp.paiement.createdDate" for="field_createdDate">Created Date</label>
+          <div class="d-flex">
+            <input
+              id="field_createdDate"
+              data-cy="createdDate"
+              type="datetime-local"
+              class="form-control"
+              name="createdDate"
+              formControlName="createdDate"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="stockApp.paiement.lastModifiedBy" for="field_lastModifiedBy">Last Modified By</label>
+          <input
+            type="text"
+            class="form-control"
+            name="lastModifiedBy"
+            id="field_lastModifiedBy"
+            data-cy="lastModifiedBy"
+            formControlName="lastModifiedBy"
+          />
+          @if (
+            editForm.get('lastModifiedBy')!.invalid && (editForm.get('lastModifiedBy')!.dirty || editForm.get('lastModifiedBy')!.touched)
+          ) {
+            <div>
+              @if (editForm.get('lastModifiedBy')?.errors?.maxlength) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 50 }"
+                  >Ce champ doit faire moins de 50 caractères.</small
+                >
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="stockApp.paiement.lastModifiedDate" for="field_lastModifiedDate"
+            >Last Modified Date</label
+          >
+          <div class="d-flex">
+            <input
+              id="field_lastModifiedDate"
+              data-cy="lastModifiedDate"
+              type="datetime-local"
+              class="form-control"
+              name="lastModifiedDate"
+              formControlName="lastModifiedDate"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="stockApp.paiement.plansAbonnement" for="field_plansAbonnement">Plans Abonnement</label>
+          <select
+            class="form-control"
+            id="field_plansAbonnement"
+            data-cy="plansAbonnement"
+            name="plansAbonnement"
+            formControlName="plansAbonnement"
+            [compareWith]="comparePlansAbonnement"
+          >
+            @if (editForm.get(['plansAbonnement'])!.value == null) {
+              <option [ngValue]="null" selected></option>
+            }
+            @for (plansAbonnementOption of plansAbonnementsSharedCollection; track $index) {
+              <option [ngValue]="plansAbonnementOption">{{ plansAbonnementOption.libelle }}</option>
+            }
+          </select>
+        </div>
+        @if (
+          editForm.get(['plansAbonnement'])!.invalid &&
+          (editForm.get(['plansAbonnement'])!.dirty || editForm.get(['plansAbonnement'])!.touched)
+        ) {
+          <div>
+            @if (editForm.get(['plansAbonnement'])?.errors?.required) {
+              <small class="form-text text-danger" jhiTranslate="entity.validation.required">Ce champ est obligatoire.</small>
+            }
+          </div>
+        }
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Annuler</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Sauvegarder</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

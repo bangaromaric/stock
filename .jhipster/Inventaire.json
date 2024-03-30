@@ -1,0 +1,72 @@
+{
+  "annotations": {
+    "changelogDate": "20240330153217"
+  },
+  "applications": ["stock"],
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "id",
+      "fieldType": "UUID"
+    },
+    {
+      "fieldName": "quantite",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "inventaireDate",
+      "fieldType": "Instant",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "deleteAt",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "createdBy",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "maxlength"],
+      "fieldValidateRulesMaxlength": "50"
+    },
+    {
+      "fieldName": "createdDate",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "lastModifiedBy",
+      "fieldType": "String",
+      "fieldValidateRules": ["maxlength"],
+      "fieldValidateRulesMaxlength": "50"
+    },
+    {
+      "fieldName": "lastModifiedDate",
+      "fieldType": "Instant"
+    }
+  ],
+  "jpaMetamodelFiltering": true,
+  "name": "Inventaire",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityField": "libelle",
+      "otherEntityName": "entrepot",
+      "otherEntityRelationshipName": "inventaire",
+      "relationshipName": "entrepot",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    },
+    {
+      "otherEntityField": "libelle",
+      "otherEntityName": "produit",
+      "otherEntityRelationshipName": "inventaire",
+      "relationshipName": "produit",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceClass"
+}

@@ -1,0 +1,36 @@
+{
+  "generator-jhipster": {
+    "applicationIndex": 0,
+    "applicationType": "monolith",
+    "authenticationType": "jwt",
+    "baseName": "stock",
+    "clientFramework": "angular",
+    "devDatabaseType": "h2Disk",
+    "devServerPort": 4200,
+    "entities": [
+      "Entrepot",
+      "Structure",
+      "Produit",
+      "Categorie",
+      "MouvementStock",
+      "Stock",
+      "Inventaire",
+      "Vente",
+      "Abonnement",
+      "Paiement",
+      "PlansAbonnement",
+      "Employe",
+      "Permission"
+    ],
+    "jhipsterVersion": "8.2.1",
+    "jwtSecretKey": "MWRjYWViMzkwN2QxNzE3YTRhYmU1OTJlZTdlZWQ1OTZjOGFiYmQ5YTU5MmUxNzdjZGNhNjdiMDI3YTRhYTdiZDRiZGQ5MWUwMmUwNmI3NjlmNjlkOWU5MjNlOTlmYmI2ZDVjYmI4YmI0NDZjODFjMTE2MTE2Y2RmMjUzNjEzMDU=",
+    "languages": ["fr", "en"],
+    "lastLiquibaseTimestamp": 1711813097000,
+    "nativeLanguage": "fr",
+    "packageFolder": "ga/aninf/stock",
+    "packageName": "ga.aninf.stock",
+    "prodDatabaseType": "postgresql",
+    "serverPort": "8080",
+    "testFrameworks": ["gatling"]
+  }
+}

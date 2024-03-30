@@ -1,0 +1,74 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (entrepot) {
+      <div>
+        <h2 data-cy="entrepotDetailsHeading"><span jhiTranslate="stockApp.entrepot.detail.title">Entrepot</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="stockApp.entrepot.id">Id</span></dt>
+          <dd>
+            <span>{{ entrepot.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="stockApp.entrepot.libelle">Libelle</span></dt>
+          <dd>
+            <span>{{ entrepot.libelle }}</span>
+          </dd>
+          <dt><span jhiTranslate="stockApp.entrepot.slug">Slug</span></dt>
+          <dd>
+            <span>{{ entrepot.slug }}</span>
+          </dd>
+          <dt><span jhiTranslate="stockApp.entrepot.capacite">Capacite</span></dt>
+          <dd>
+            <span>{{ entrepot.capacite }}</span>
+          </dd>
+          <dt><span jhiTranslate="stockApp.entrepot.description">Description</span></dt>
+          <dd>
+            <span>{{ entrepot.description }}</span>
+          </dd>
+          <dt><span jhiTranslate="stockApp.entrepot.deleteAt">Delete At</span></dt>
+          <dd>
+            <span>{{ entrepot.deleteAt | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span jhiTranslate="stockApp.entrepot.createdBy">Created By</span></dt>
+          <dd>
+            <span>{{ entrepot.createdBy }}</span>
+          </dd>
+          <dt><span jhiTranslate="stockApp.entrepot.createdDate">Created Date</span></dt>
+          <dd>
+            <span>{{ entrepot.createdDate | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span jhiTranslate="stockApp.entrepot.lastModifiedBy">Last Modified By</span></dt>
+          <dd>
+            <span>{{ entrepot.lastModifiedBy }}</span>
+          </dd>
+          <dt><span jhiTranslate="stockApp.entrepot.lastModifiedDate">Last Modified Date</span></dt>
+          <dd>
+            <span>{{ entrepot.lastModifiedDate | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span jhiTranslate="stockApp.entrepot.structure">Structure</span></dt>
+          <dd>
+            @if (entrepot.structure) {
+              <div>
+                <a [routerLink]="['/structure', entrepot.structure.id, 'view']">{{ entrepot.structure.libelle }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Retour</span>
+        </button>
+
+        <button type="button" [routerLink]="['/entrepot', entrepot.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editer</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

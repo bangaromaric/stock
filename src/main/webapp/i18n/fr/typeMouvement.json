@@ -1,0 +1,9 @@
+{
+  "stockApp": {
+    "TypeMouvement": {
+      "null": "",
+      "ENTREE": "ENTREE",
+      "SORTIE": "SORTIE"
+    }
+  }
+}

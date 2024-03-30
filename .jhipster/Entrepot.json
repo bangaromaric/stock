@@ -1,0 +1,96 @@
+{
+  "annotations": {
+    "changelogDate": "20240330152617"
+  },
+  "applications": ["stock"],
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "id",
+      "fieldType": "UUID"
+    },
+    {
+      "fieldName": "libelle",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "unique"]
+    },
+    {
+      "fieldName": "slug",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "unique"]
+    },
+    {
+      "fieldName": "capacite",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "description",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "text"
+    },
+    {
+      "fieldName": "deleteAt",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "createdBy",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "maxlength"],
+      "fieldValidateRulesMaxlength": "50"
+    },
+    {
+      "fieldName": "createdDate",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "lastModifiedBy",
+      "fieldType": "String",
+      "fieldValidateRules": ["maxlength"],
+      "fieldValidateRulesMaxlength": "50"
+    },
+    {
+      "fieldName": "lastModifiedDate",
+      "fieldType": "Instant"
+    }
+  ],
+  "jpaMetamodelFiltering": true,
+  "name": "Entrepot",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityField": "libelle",
+      "otherEntityName": "structure",
+      "otherEntityRelationshipName": "entrepot",
+      "relationshipName": "structure",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityField": "typeMouvement",
+      "otherEntityName": "mouvementStock",
+      "otherEntityRelationshipName": "entrepot",
+      "relationshipName": "mouvementStock",
+      "relationshipSide": "right",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityField": "quantite",
+      "otherEntityName": "stock",
+      "otherEntityRelationshipName": "entrepot",
+      "relationshipName": "stock",
+      "relationshipSide": "right",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityField": "quantite",
+      "otherEntityName": "inventaire",
+      "otherEntityRelationshipName": "entrepot",
+      "relationshipName": "inventaire",
+      "relationshipSide": "right",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceClass"
+}

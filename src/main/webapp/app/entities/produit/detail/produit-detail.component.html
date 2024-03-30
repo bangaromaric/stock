@@ -1,0 +1,78 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (produit) {
+      <div>
+        <h2 data-cy="produitDetailsHeading"><span jhiTranslate="stockApp.produit.detail.title">Produit</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="stockApp.produit.id">Id</span></dt>
+          <dd>
+            <span>{{ produit.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="stockApp.produit.libelle">Libelle</span></dt>
+          <dd>
+            <span>{{ produit.libelle }}</span>
+          </dd>
+          <dt><span jhiTranslate="stockApp.produit.description">Description</span></dt>
+          <dd>
+            <span>{{ produit.description }}</span>
+          </dd>
+          <dt><span jhiTranslate="stockApp.produit.slug">Slug</span></dt>
+          <dd>
+            <span>{{ produit.slug }}</span>
+          </dd>
+          <dt><span jhiTranslate="stockApp.produit.prixUnitaire">Prix Unitaire</span></dt>
+          <dd>
+            <span>{{ produit.prixUnitaire }}</span>
+          </dd>
+          <dt><span jhiTranslate="stockApp.produit.dateExpiration">Date Expiration</span></dt>
+          <dd>
+            <span>{{ produit.dateExpiration | formatMediumDate }}</span>
+          </dd>
+          <dt><span jhiTranslate="stockApp.produit.deleteAt">Delete At</span></dt>
+          <dd>
+            <span>{{ produit.deleteAt | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span jhiTranslate="stockApp.produit.createdBy">Created By</span></dt>
+          <dd>
+            <span>{{ produit.createdBy }}</span>
+          </dd>
+          <dt><span jhiTranslate="stockApp.produit.createdDate">Created Date</span></dt>
+          <dd>
+            <span>{{ produit.createdDate | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span jhiTranslate="stockApp.produit.lastModifiedBy">Last Modified By</span></dt>
+          <dd>
+            <span>{{ produit.lastModifiedBy }}</span>
+          </dd>
+          <dt><span jhiTranslate="stockApp.produit.lastModifiedDate">Last Modified Date</span></dt>
+          <dd>
+            <span>{{ produit.lastModifiedDate | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span jhiTranslate="stockApp.produit.categorie">Categorie</span></dt>
+          <dd>
+            @if (produit.categorie) {
+              <div>
+                <a [routerLink]="['/categorie', produit.categorie.id, 'view']">{{ produit.categorie.libelle }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Retour</span>
+        </button>
+
+        <button type="button" [routerLink]="['/produit', produit.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editer</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

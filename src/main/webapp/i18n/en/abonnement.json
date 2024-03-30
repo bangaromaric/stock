@@ -1,0 +1,35 @@
+{
+  "stockApp": {
+    "abonnement": {
+      "home": {
+        "title": "Abonnements",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Abonnement",
+        "createOrEditLabel": "Create or edit a Abonnement",
+        "notFound": "No Abonnements found"
+      },
+      "created": "A new Abonnement is created with identifier {{ param }}",
+      "updated": "A Abonnement is updated with identifier {{ param }}",
+      "deleted": "A Abonnement is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Abonnement {{ id }}?"
+      },
+      "detail": {
+        "title": "Abonnement"
+      },
+      "id": "Id",
+      "dateDebut": "Date Debut",
+      "dateFin": "Date Fin",
+      "statutAbonnement": "Statut Abonnement",
+      "prix": "Prix",
+      "deleteAt": "Delete At",
+      "createdBy": "Created By",
+      "createdDate": "Created Date",
+      "lastModifiedBy": "Last Modified By",
+      "lastModifiedDate": "Last Modified Date",
+      "structure": "Structure",
+      "plansAbonnement": "Plans Abonnement",
+      "paiement": "Paiement"
+    }
+  }
+}

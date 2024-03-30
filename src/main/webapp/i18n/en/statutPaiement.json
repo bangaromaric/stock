@@ -1,0 +1,10 @@
+{
+  "stockApp": {
+    "StatutPaiement": {
+      "null": "",
+      "CONFIRME": "CONFIRME",
+      "EN_ATTENTE": "EN_ATTENTE",
+      "ANNULE": "ANNULE"
+    }
+  }
+}

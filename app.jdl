@@ -60,10 +60,23 @@ entity Produit {
     lastModifiedDate Instant
 }
 
+entity Categorie {
+    id UUID
+    libelle String required
+    description TextBlob
+
+    deleteAt Instant
+    createdBy String required maxlength(50)
+    createdDate Instant
+    lastModifiedBy String maxlength(50)
+    lastModifiedDate Instant
+}
+
 entity MouvementStock {
     id UUID
-    quantité Long required
-    TypeMouvement TypeMouvement required
+    quantite Long required
+    typeMouvement TypeMouvement required
+    transactionDate Instant required
 
     deleteAt Instant
     createdBy String required maxlength(50)
@@ -74,7 +87,7 @@ entity MouvementStock {
 
 entity Stock {
     id UUID
-    quantité Long required
+    quantite Long required
 
     deleteAt Instant
     createdBy String required maxlength(50)
@@ -85,7 +98,9 @@ entity Stock {
 
 entity Inventaire {
     id UUID
-    quantité Long required
+    quantite Long required
+    inventaireDate Instant required
+
 
     deleteAt Instant
     createdBy String required maxlength(50)
@@ -96,8 +111,9 @@ entity Inventaire {
 
 entity Vente {
     id UUID
-    quantité Long required
+    quantite Long required
     montant BigDecimal required
+    venteDate Instant required
 
     deleteAt Instant
     createdBy String required maxlength(50)
@@ -140,7 +156,7 @@ entity PlansAbonnement {
     description TextBlob required
     prix BigDecimal required
     Duree String
-    Avantage String
+    Avantage TextBlob
 
     deleteAt Instant
     createdBy String required maxlength(50)
@@ -153,7 +169,7 @@ entity Employe {
     id UUID
     firstName String
     lastName String required
-
+    login String required
     email String pattern(/^[^@\s]+@[^@\s]+\.[^@\s]+$/)
 
     deleteAt Instant
@@ -161,6 +177,17 @@ entity Employe {
     createdDate Instant
     lastModifiedBy String maxlength(50)
     lastModifiedDate Instant
+}
+entity Permission{
+    id UUID
+    ressource  String required
+    action String required
+
+    deleteAt Instant
+    createdDate Instant required
+    createdBy String
+    lastModifiedDate Instant
+    lastModifiedBy String
 }
 
 //ENUM
@@ -182,150 +209,56 @@ enum StatutPaiement{
 }
 
 
-/*
-entity TypeDocument {
-    id UUID
-    libelle String required
-    deleteAt Instant
-}
-*/
-
-//entity Employe {
-//    id UUID
-//    firstName String required
-//    deleteAt Instant
-//}
-
-
-
-
-//entity DemandeConge {
-//    id UUID
-//    dateDebut LocalDate required
-//    dateFin LocalDate required
-//    dateRetour LocalDate required
-//    motif TextBlob
-//    nombreJours Integer required
-//    annee Integer
-//    deleteAt Instant
-//    entiteId String
-//    // Ajoutez d'autres propriétés de la demande de congé selon vos besoins
-//}
-
-//entity Ferie {
-//    id UUID
-//    annee Integer required
-//    dateDebut LocalDate required
-//    // Ajoutez d'autres propriétés de l'étape selon vos besoins
-//
-//}
-
-//entity EntiteAdministrative {
-//    id UUID
-//    libelle String required
-//    code String required unique
-//}
-
-
-
-
-//entity Document {
-//    id UUID
-//    fileSize Long required
-//    filename String required
-//    deleteAt Instant
-//}
-
-//
-
-
-//entity TypeConge {
-//    id UUID
-//    libelle String required
-//    code String required unique
-//    dureeMax Integer required
-//    // Ajoutez d'autres propriétés de la demande de congé selon vos besoins
-//
-//}
-
-//entity Statut {
-//    id UUID
-//    tableName TableName required
-//    libelle String required
-//    code String required
-//    // Ajoutez d'autres propriétés de la demande de congé selon vos besoins
-//
-//}
-//
-//entity TypeEntiteAdministrative {
-//    id UUID
-//    libelle String required
-//    code String required
-//    // Ajoutez d'autres propriétés de la demande de congé selon vos besoins
-//
-//}
-
-
 
 //RELATION
 
-/*
-relationship OneToMany {
-    HistoriqueEtape{documents} to Document{historiqueDemandeEtape}
-    Etape{typeDocumentDemandes} to TypeDocument
-    Etape{documentPourGeneres} to Document
-}
-*/
 
 relationship OneToOne{
-    Application{compte(login) } to User with builtInEntity
+    Employe{internalUser(login) } to User with builtInEntity
 }
+
+relationship OneToMany{
+    Structure{entrepot(libelle) } to Entrepot{structure(libelle)}
+    Structure{employe(lastName) } to Employe{structure(libelle)}
+
+}
+
 
 relationship ManyToOne {
+    Produit{categorie(libelle) required} to Categorie{produit(libelle)}
 
-    Etape{circuitValidation(libelle) required} to CircuitValidation{etapes}
-    //  Etape{validateur(firstName) required } to Employe{etapes(libelle)}
+    MouvementStock{produit(libelle) required} to Produit{mouvementStock(typeMouvement)}
+    MouvementStock{entrepot(libelle) required} to Entrepot{mouvementStock(typeMouvement)}
 
-    //  Document {typeDocument(libelle) required } to TypeDocument
-
-    //  TypeDocument {etape(libelle) required } to Etape
-
-    LienEtape{etapeDepart(libelle) required} to Etape{liensSortants}
-    LienEtape{etapeArrivee(libelle) required} to Etape{liensEntrants}
-    LienEtape{circuitValidation(libelle) required} to CircuitValidation{lienEtapes}
-
-    //  DemandeConge{circuitValidation(libelle) required} to CircuitValidation
-    //  DemandeConge{etapeActuelle(libelle) required} to Etape
-    //  DemandeConge{employe(firstName) required} to Employe{demandeConges}
-    //  DemandeConge{entiteAdministrative(libelle) required} to EntiteAdministrative{demandeConges}
-    //  DemandeConge{typeConge(libelle) required} to TypeConge
-    //  DemandeConge{statut(libelle) required} to Statut
+    Stock{entrepot(libelle) required} to Entrepot{Stock(quantite)}
+    Stock{produit(libelle) required} to Produit{stock(quantite)}
 
 
-    HistoriqueEtape{etape(libelle) required} to Etape
+    Inventaire{entrepot(libelle) required} to Entrepot{inventaire(quantite)}
+    Inventaire{produit(libelle) required} to Produit{inventaire(quantite)}
 
-    CircuitValidation{application(libelle) required} to Application
-    //  HistoriqueEtape{demandeConge required} to DemandeConge{historiqueDemandeEtapes}
-    //  HistoriqueEtape{entiteAdministrative(libelle) required} to EntiteAdministrative{historiqueDemandeEtapes}
+    Vente{produit(libelle) required} to Produit{vente(montant)}
+    Vente{structure(libelle) required} to Structure{vente(montant)}
 
-    //  EntiteAdministrative{parent(libelle)} to EntiteAdministrative{child(libelle)}
-    //  EntiteAdministrative{typeEntiteAdministrative(libelle) required } to TypeEntiteAdministrative
+    Abonnement{structure(libelle) required} to Structure{abonnement(prix)}
+    Abonnement{plansAbonnement(libelle) required} to PlansAbonnement{abonnement(prix)}
+    Abonnement{paiement(montant) required} to Paiement{abonnement(prix)}
+
+    Paiement{plansAbonnement(libelle) required} to PlansAbonnement{paiement(statutPaiement)}
 
 
 }
-/*
+
 relationship ManyToMany {
-
-
-
+    Permission {authority } to Authority with builtInEntity
 }
-*/
+
 
 // Set pagination options
 paginate * with pagination
 
 // Use Data Transfer Objects (DTO)
-dto * with mapstruct
+dto * with mapstruct except Permission
 
 // Set service options to all except few serviceImpl
 service all with serviceClass
@@ -454,27 +387,27 @@ Chaque catégorie peut contenir plusieurs produits.
 
 Mouvement de Stock :
 
-Un mouvement de stock représente une transaction affectant la quantité de stock d'un produit dans un entrepôt.
+Un mouvement de stock représente une transaction affectant la quantite de stock d'un produit dans un entrepôt.
 Chaque mouvement de stock est associé à un produit et à un entrepôt.
 Un mouvement de stock peut être entrant (réception de marchandises) ou sortant (vente, utilisation interne).
-Chaque mouvement de stock enregistre la quantité entrante ou sortante ainsi que la date de la transaction.
+Chaque mouvement de stock enregistre la quantite entrante ou sortante ainsi que la date de la transaction.
 
 Stock par Entrepôt :
 
-Une table de stock par entrepôt enregistre la quantité de chaque produit disponible dans chaque entrepôt.
+Une table de stock par entrepôt enregistre la quantite de chaque produit disponible dans chaque entrepôt.
 Chaque enregistrement est associé à un produit et à un entrepôt.
-La quantité de stock est mise à jour à chaque mouvement de stock entrant ou sortant.
+La quantite de stock est mise à jour à chaque mouvement de stock entrant ou sortant.
 
 Inventaire :
 
 Un inventaire représente un état actuel des stocks dans un entrepôt à un moment donné.
 Chaque inventaire est associé à un entrepôt et une date.
-Pour chaque produit dans l'inventaire, la quantité de stock est enregistrée.
+Pour chaque produit dans l'inventaire, la quantite de stock est enregistrée.
 
 Vente :
 
 Une vente représente une transaction où un produit est vendu à un client dans un Structure.
-Chaque vente est associée à un Structure, un produit et une quantité vendue.
+Chaque vente est associée à un Structure, un produit et une quantite vendue.
 Les ventes affectent le stock disponible dans l'entrepôt associé au Structure.
 
 Table Abonnements :
@@ -518,10 +451,10 @@ Entités :
  -Structure (id, libelle)
  -Catégorie (id,libelle)
  -Produit (id,libelle, id_categorie)
- -MouvementStock (id, id_produit, id_entrepot, type_mouvement, Quantité, date_mouvement)
- -Stock (id, id_entrepot, id_Produit, Quantité)
- -Inventaire (id, id_entrepot, date_inventaire,id_produit, Quantité)
- -Vente (id, id_vente, id_structure, id_produit, quantié, Date_time_vente, montant)
+ -MouvementStock (id, id_produit, id_entrepot, type_mouvement, quantite, date_mouvement)
+ -Stock (id, id_entrepot, id_Produit, quantite)
+ -Inventaire (id, id_entrepot, date_inventaire,id_produit, quantite)
+ -Vente (id, id_structure, id_produit, quantié, Date_time_vente, montant)
  -Utilisateur (id, Nom, Mot de passe, Type d'utilisateur).
 
 

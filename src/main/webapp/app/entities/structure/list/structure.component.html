@@ -1,0 +1,171 @@
+<div>
+  <h2 id="page-heading" data-cy="StructureHeading">
+    <span jhiTranslate="stockApp.structure.home.title">Structures</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="stockApp.structure.home.refreshListLabel">Actualiser la liste</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-structure"
+        [routerLink]="['/structure/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="stockApp.structure.home.createLabel">Créer un nouveau Structure</span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <jhi-filter [filters]="filters"></jhi-filter>
+
+  @if (structures?.length === 0) {
+    <div class="alert alert-warning" id="no-result">
+      <span jhiTranslate="stockApp.structure.home.notFound">Aucun Structure trouvé</span>
+    </div>
+  }
+
+  @if (structures && structures.length > 0) {
+    <div class="table-responsive table-entities" id="entities">
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr jhiSort [sortState]="sortState" (sortChange)="navigateToWithComponentValues($event)">
+            <th scope="col" jhiSortBy="id">
+              <div class="d-flex">
+                <span jhiTranslate="stockApp.structure.id">Id</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="libelle">
+              <div class="d-flex">
+                <span jhiTranslate="stockApp.structure.libelle">Libelle</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="telephone">
+              <div class="d-flex">
+                <span jhiTranslate="stockApp.structure.telephone">Telephone</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="email">
+              <div class="d-flex">
+                <span jhiTranslate="stockApp.structure.email">Email</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="adresse">
+              <div class="d-flex">
+                <span jhiTranslate="stockApp.structure.adresse">Adresse</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="deleteAt">
+              <div class="d-flex">
+                <span jhiTranslate="stockApp.structure.deleteAt">Delete At</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="createdBy">
+              <div class="d-flex">
+                <span jhiTranslate="stockApp.structure.createdBy">Created By</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="createdDate">
+              <div class="d-flex">
+                <span jhiTranslate="stockApp.structure.createdDate">Created Date</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="lastModifiedBy">
+              <div class="d-flex">
+                <span jhiTranslate="stockApp.structure.lastModifiedBy">Last Modified By</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="lastModifiedDate">
+              <div class="d-flex">
+                <span jhiTranslate="stockApp.structure.lastModifiedDate">Last Modified Date</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (structure of structures; track trackId) {
+            <tr data-cy="entityTable">
+              <td>
+                <a [routerLink]="['/structure', structure.id, 'view']">{{ structure.id }}</a>
+              </td>
+              <td>{{ structure.libelle }}</td>
+              <td>{{ structure.telephone }}</td>
+              <td>{{ structure.email }}</td>
+              <td>{{ structure.adresse }}</td>
+              <td>{{ structure.deleteAt | formatMediumDatetime }}</td>
+              <td>{{ structure.createdBy }}</td>
+              <td>{{ structure.createdDate | formatMediumDatetime }}</td>
+              <td>{{ structure.lastModifiedBy }}</td>
+              <td>{{ structure.lastModifiedDate | formatMediumDatetime }}</td>
+              <td class="text-end">
+                <div class="btn-group">
+                  <a [routerLink]="['/structure', structure.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                    <fa-icon icon="eye"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Voir</span>
+                  </a>
+
+                  <a [routerLink]="['/structure', structure.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                    <fa-icon icon="pencil-alt"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Editer</span>
+                  </a>
+
+                  <button type="submit" (click)="delete(structure)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                    <fa-icon icon="times"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Supprimer</span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+  @if (structures && structures.length > 0) {
+    <div>
+      <div class="d-flex justify-content-center">
+        <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+      </div>
+
+      <div class="d-flex justify-content-center">
+        <ngb-pagination
+          [collectionSize]="totalItems"
+          [page]="page"
+          [pageSize]="itemsPerPage"
+          [maxSize]="5"
+          [rotate]="true"
+          [boundaryLinks]="true"
+          (pageChange)="navigateToPage($event)"
+        ></ngb-pagination>
+      </div>
+    </div>
+  }
+</div>

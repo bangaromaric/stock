@@ -1,0 +1,32 @@
+{
+  "stockApp": {
+    "inventaire": {
+      "home": {
+        "title": "Inventaires",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Inventaire",
+        "createOrEditLabel": "Créer ou éditer un Inventaire",
+        "notFound": "Aucun Inventaire trouvé"
+      },
+      "created": "Un nouveau Inventaire a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Inventaire avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Inventaire avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Êtes-vous certain de vouloir supprimer le Inventaire {{ id }} ?"
+      },
+      "detail": {
+        "title": "Inventaire"
+      },
+      "id": "Id",
+      "quantite": "Quantite",
+      "inventaireDate": "Inventaire Date",
+      "deleteAt": "Delete At",
+      "createdBy": "Created By",
+      "createdDate": "Created Date",
+      "lastModifiedBy": "Last Modified By",
+      "lastModifiedDate": "Last Modified Date",
+      "entrepot": "Entrepot",
+      "produit": "Produit"
+    }
+  }
+}

@@ -1,0 +1,173 @@
+<div>
+  <h2 id="page-heading" data-cy="StockHeading">
+    <span jhiTranslate="stockApp.stock.home.title">Stocks</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="stockApp.stock.home.refreshListLabel">Actualiser la liste</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-stock"
+        [routerLink]="['/stock/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="stockApp.stock.home.createLabel">Créer un nouveau Stock</span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <jhi-filter [filters]="filters"></jhi-filter>
+
+  @if (stocks?.length === 0) {
+    <div class="alert alert-warning" id="no-result">
+      <span jhiTranslate="stockApp.stock.home.notFound">Aucun Stock trouvé</span>
+    </div>
+  }
+
+  @if (stocks && stocks.length > 0) {
+    <div class="table-responsive table-entities" id="entities">
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr jhiSort [sortState]="sortState" (sortChange)="navigateToWithComponentValues($event)">
+            <th scope="col" jhiSortBy="id">
+              <div class="d-flex">
+                <span jhiTranslate="stockApp.stock.id">Id</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="quantite">
+              <div class="d-flex">
+                <span jhiTranslate="stockApp.stock.quantite">Quantite</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="deleteAt">
+              <div class="d-flex">
+                <span jhiTranslate="stockApp.stock.deleteAt">Delete At</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="createdBy">
+              <div class="d-flex">
+                <span jhiTranslate="stockApp.stock.createdBy">Created By</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="createdDate">
+              <div class="d-flex">
+                <span jhiTranslate="stockApp.stock.createdDate">Created Date</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="lastModifiedBy">
+              <div class="d-flex">
+                <span jhiTranslate="stockApp.stock.lastModifiedBy">Last Modified By</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="lastModifiedDate">
+              <div class="d-flex">
+                <span jhiTranslate="stockApp.stock.lastModifiedDate">Last Modified Date</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="entrepot.libelle">
+              <div class="d-flex">
+                <span jhiTranslate="stockApp.stock.entrepot">Entrepot</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="produit.libelle">
+              <div class="d-flex">
+                <span jhiTranslate="stockApp.stock.produit">Produit</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (stock of stocks; track trackId) {
+            <tr data-cy="entityTable">
+              <td>
+                <a [routerLink]="['/stock', stock.id, 'view']">{{ stock.id }}</a>
+              </td>
+              <td>{{ stock.quantite }}</td>
+              <td>{{ stock.deleteAt | formatMediumDatetime }}</td>
+              <td>{{ stock.createdBy }}</td>
+              <td>{{ stock.createdDate | formatMediumDatetime }}</td>
+              <td>{{ stock.lastModifiedBy }}</td>
+              <td>{{ stock.lastModifiedDate | formatMediumDatetime }}</td>
+              <td>
+                @if (stock.entrepot) {
+                  <div>
+                    <a [routerLink]="['/entrepot', stock.entrepot.id, 'view']">{{ stock.entrepot.libelle }}</a>
+                  </div>
+                }
+              </td>
+              <td>
+                @if (stock.produit) {
+                  <div>
+                    <a [routerLink]="['/produit', stock.produit.id, 'view']">{{ stock.produit.libelle }}</a>
+                  </div>
+                }
+              </td>
+              <td class="text-end">
+                <div class="btn-group">
+                  <a [routerLink]="['/stock', stock.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                    <fa-icon icon="eye"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Voir</span>
+                  </a>
+
+                  <a [routerLink]="['/stock', stock.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                    <fa-icon icon="pencil-alt"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Editer</span>
+                  </a>
+
+                  <button type="submit" (click)="delete(stock)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                    <fa-icon icon="times"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Supprimer</span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+  @if (stocks && stocks.length > 0) {
+    <div>
+      <div class="d-flex justify-content-center">
+        <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+      </div>
+
+      <div class="d-flex justify-content-center">
+        <ngb-pagination
+          [collectionSize]="totalItems"
+          [page]="page"
+          [pageSize]="itemsPerPage"
+          [maxSize]="5"
+          [rotate]="true"
+          [boundaryLinks]="true"
+          (pageChange)="navigateToPage($event)"
+        ></ngb-pagination>
+      </div>
+    </div>
+  }
+</div>

@@ -1,0 +1,78 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (employe) {
+      <div>
+        <h2 data-cy="employeDetailsHeading"><span jhiTranslate="stockApp.employe.detail.title">Employe</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="stockApp.employe.id">Id</span></dt>
+          <dd>
+            <span>{{ employe.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="stockApp.employe.firstName">First Name</span></dt>
+          <dd>
+            <span>{{ employe.firstName }}</span>
+          </dd>
+          <dt><span jhiTranslate="stockApp.employe.lastName">Last Name</span></dt>
+          <dd>
+            <span>{{ employe.lastName }}</span>
+          </dd>
+          <dt><span jhiTranslate="stockApp.employe.login">Login</span></dt>
+          <dd>
+            <span>{{ employe.login }}</span>
+          </dd>
+          <dt><span jhiTranslate="stockApp.employe.email">Email</span></dt>
+          <dd>
+            <span>{{ employe.email }}</span>
+          </dd>
+          <dt><span jhiTranslate="stockApp.employe.deleteAt">Delete At</span></dt>
+          <dd>
+            <span>{{ employe.deleteAt | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span jhiTranslate="stockApp.employe.createdBy">Created By</span></dt>
+          <dd>
+            <span>{{ employe.createdBy }}</span>
+          </dd>
+          <dt><span jhiTranslate="stockApp.employe.createdDate">Created Date</span></dt>
+          <dd>
+            <span>{{ employe.createdDate | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span jhiTranslate="stockApp.employe.lastModifiedBy">Last Modified By</span></dt>
+          <dd>
+            <span>{{ employe.lastModifiedBy }}</span>
+          </dd>
+          <dt><span jhiTranslate="stockApp.employe.lastModifiedDate">Last Modified Date</span></dt>
+          <dd>
+            <span>{{ employe.lastModifiedDate | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span jhiTranslate="stockApp.employe.internalUser">Internal User</span></dt>
+          <dd>
+            <span>{{ employe.internalUser?.login }}</span>
+          </dd>
+          <dt><span jhiTranslate="stockApp.employe.structure">Structure</span></dt>
+          <dd>
+            @if (employe.structure) {
+              <div>
+                <a [routerLink]="['/structure', employe.structure.id, 'view']">{{ employe.structure.libelle }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Retour</span>
+        </button>
+
+        <button type="button" [routerLink]="['/employe', employe.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editer</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>
